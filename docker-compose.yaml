@@ -1,0 +1,41 @@
+services:
+    bff_nginx:
+        image: nginx
+        container_name: soat-bff-nginx
+        ports:
+            - 8000:80
+        hostname: soat-bff-nginx-hostname
+        restart: on-failure:3
+        volumes:
+            - ./docker/containers/nginx/nginx.conf:/etc/nginx/nginx.conf
+            - ./application:/var/www/html
+        depends_on:
+            bff:
+                condition: service_healthy
+                restart: true
+
+    bff:
+        container_name: soat-bff
+        hostname: soat-bff-hostname
+        build:
+            context: .
+            dockerfile: ./docker/images/php/Dockerfile
+        volumes:
+            - ./application:/var/www/html
+        restart: on-failure:3
+        expose:
+            - "9000"
+        healthcheck:
+            test:
+                [
+                    "CMD-SHELL",
+                    "SCRIPT_NAME=/ping SCRIPT_FILENAME=/ping REQUEST_METHOD=GET cgi-fcgi -bind -connect 127.0.0.1:9000 | grep pong || exit 1",
+                ]
+            interval: 5s
+            timeout: 3s
+            retries: 3
+
+# networks:
+#     default:
+#         external: true
+#         name: soat-net
