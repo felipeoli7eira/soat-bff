@@ -10,6 +10,11 @@ Route::get("ping", function () {
     ]);
 });
 
+Route::get("ping/upload", [
+    \App\Http\Controllers\UploadServiceConnectionController::class,
+    "ping",
+]);
+
 Route::get("/status/{uuid}", [
     \App\Http\Controllers\ReportServiceConnectionController::class,
     "getReportStatus",
