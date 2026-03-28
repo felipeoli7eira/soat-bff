@@ -1,0 +1,284 @@
+{
+  "info": {
+    "_postman_id": "6e1ee2bb-0e50-4e87-a636-70001480f3f1",
+    "name": "soat-bff",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "26486378",
+    "_collection_link": "https://go.postman.co/collection/26486378-6e1ee2bb-0e50-4e87-a636-70001480f3f1?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "ping",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{api}}/ping",
+          "host": [
+            "{{api}}"
+          ],
+          "path": [
+            "ping"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "200 OK",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{api}}/ping",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "ping"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Server",
+              "value": "nginx/1.29.6"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "PHP/8.4.19"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, private"
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 28 Mar 2026 19:36:13 GMT"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"err\": false,\n    \"msg\": \"pong\",\n    \"service\": \"BFF\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "ping upload",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{api}}/ping/upload",
+          "host": [
+            "{{api}}"
+          ],
+          "path": [
+            "ping",
+            "upload"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "200 OK",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{api}}/ping/upload",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "ping",
+                "upload"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Server",
+              "value": "nginx/1.29.6"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "PHP/8.4.19"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, private"
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 28 Mar 2026 19:37:16 GMT"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"err\": false,\n    \"msg\": \"Ping realizado com sucesso.\",\n    \"data\": {\n        \"err\": false,\n        \"msg\": \"pong\",\n        \"service\": \"Upload\"\n    }\n}"
+        }
+      ]
+    },
+    {
+      "name": "upload",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "diagram",
+              "type": "file",
+              "uuid": "bf9d6a20-eecf-480f-b837-f9e0333f5904",
+              "src": "///wsl.localhost/Ubuntu-24.04/home/foliveira/dev/soat-fase5/upload-service/diagrams/helpdesk_architectures.pdf"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{api}}/upload",
+          "host": [
+            "{{api}}"
+          ],
+          "path": [
+            "upload"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "201 CREATED",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "diagram",
+                  "type": "file",
+                  "uuid": "bf9d6a20-eecf-480f-b837-f9e0333f5904",
+                  "src": "///wsl.localhost/Ubuntu-24.04/home/foliveira/dev/soat-fase5/upload-service/diagrams/helpdesk_architectures.pdf"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{api}}/upload",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "upload"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Server",
+              "value": "nginx/1.29.6"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "PHP/8.4.19"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, private"
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 28 Mar 2026 19:29:22 GMT"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"err\": false,\n    \"msg\": \"Upload realizado com sucesso.\",\n    \"data\": {\n        \"err\": false,\n        \"message\": \"Arquivo recebido com sucesso\",\n        \"data\": {\n            \"protocolo\": \"1bbcee7c-9a7a-45c6-aae6-8868d9bcb368\"\n        }\n    },\n    \"status\": 200\n}"
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "api",
+      "value": "http://127.0.0.1:8000/api"
+    }
+  ]
+}
