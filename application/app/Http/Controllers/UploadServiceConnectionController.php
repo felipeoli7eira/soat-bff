@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Infrastructure\Observability\OtelContext;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -14,6 +15,7 @@ class UploadServiceConnectionController
 {
     public bool $uploadServiceUrlEnvIsDefined = false;
     public string $uploadServiceUrl = "";
+    public int $uploadServiceTimeoutSeconds = 10;
 
     public function __construct()
     {
@@ -22,6 +24,11 @@ class UploadServiceConnectionController
         if ($this->uploadServiceUrlEnvIsDefined) {
             $this->uploadServiceUrl = env("UPLOAD_SERVICE_BASE_URL");
         }
+
+        $this->uploadServiceTimeoutSeconds = max(
+            1,
+            (int) env("UPLOAD_SERVICE_TIMEOUT_SECONDS", 10)
+        );
     }
 
     public function upload(Request $request)
@@ -68,8 +75,8 @@ class UploadServiceConnectionController
             $contents = fopen($file->getRealPath(), "r");
             $clientOriginalName = $file->getClientOriginalName();
 
-            $request = Http::withHeaders(["Accept" => "application/json"])
-                ->timeout(2)
+            $request = Http::withHeaders(["Accept" => "application/json"] + OtelContext::propagationHeaders())
+                ->timeout($this->uploadServiceTimeoutSeconds)
                 ->attach(
                     "diagram",
                     $contents,
@@ -119,7 +126,9 @@ class UploadServiceConnectionController
                 ], Response::HTTP_INTERNAL_SERVER_ERROR);
             }
 
-            $ping = Http::timeout(2)->head($this->uploadServiceUrl);
+            $ping = Http::withHeaders(OtelContext::propagationHeaders())
+                ->timeout($this->uploadServiceTimeoutSeconds)
+                ->head($this->uploadServiceUrl);
 
             if ($ping->successful() === false) {
                 return response()->json([
@@ -128,7 +137,9 @@ class UploadServiceConnectionController
                 ], Response::HTTP_INTERNAL_SERVER_ERROR);
             }
 
-            $request = Http::timeout(2)->get("{$this->uploadServiceUrl}/api/ping");
+            $request = Http::withHeaders(OtelContext::propagationHeaders())
+                ->timeout($this->uploadServiceTimeoutSeconds)
+                ->get("{$this->uploadServiceUrl}/api/ping");
 
             if ($request->successful() === false) {
                 return response()->json([
