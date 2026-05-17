@@ -15,7 +15,7 @@ class UploadServiceConnectionController
 {
     public bool $uploadServiceUrlEnvIsDefined = false;
     public string $uploadServiceUrl = "";
-    public int $uploadServiceTimeoutSeconds = 10;
+    public int $uploadServiceTimeoutSeconds = 5000;
 
     public function __construct()
     {
