@@ -15,6 +15,11 @@ Route::get("ping/upload", [
     "ping",
 ]);
 
+Route::get("ping/report", [
+    \App\Http\Controllers\ReportServiceConnectionController::class,
+    "ping",
+]);
+
 Route::get("/status/{uuid}", [
     \App\Http\Controllers\ReportServiceConnectionController::class,
     "getReportStatus",
@@ -23,6 +28,11 @@ Route::get("/status/{uuid}", [
 Route::get("/report/{uuid}", [
     \App\Http\Controllers\ReportServiceConnectionController::class,
     "getReport",
+]);
+
+Route::get("/report/{uuid}/status", [
+    \App\Http\Controllers\ReportServiceConnectionController::class,
+    "getReportStatus",
 ]);
 
 Route::post("/upload", [

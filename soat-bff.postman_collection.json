@@ -156,6 +156,81 @@
       ]
     },
     {
+      "name": "ping report",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{api}}/ping/report",
+          "host": [
+            "{{api}}"
+          ],
+          "path": [
+            "ping",
+            "report"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "200 OK",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{api}}/ping/upload",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "ping",
+                "upload"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Server",
+              "value": "nginx/1.29.6"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "PHP/8.4.19"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, private"
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 28 Mar 2026 19:37:16 GMT"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"err\": false,\n    \"msg\": \"Ping realizado com sucesso.\",\n    \"data\": {\n        \"err\": false,\n        \"msg\": \"pong\",\n        \"service\": \"Upload\"\n    }\n}"
+        }
+      ]
+    },
+    {
       "name": "upload",
       "request": {
         "method": "POST",
@@ -167,7 +242,7 @@
               "key": "diagram",
               "type": "file",
               "uuid": "bf9d6a20-eecf-480f-b837-f9e0333f5904",
-              "src": "///wsl.localhost/Ubuntu-24.04/home/foliveira/dev/soat-fase5/upload-service/diagrams/helpdesk_architectures.pdf"
+              "src": "///wsl.localhost/Ubuntu-24.04/home/foliveira/dev/soat-fase5/upload-service/diagrams/helpdesk_advanced_architecture.png"
             }
           ]
         },
@@ -178,6 +253,205 @@
           ],
           "path": [
             "upload"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "201 CREATED",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "diagram",
+                  "type": "file",
+                  "uuid": "bf9d6a20-eecf-480f-b837-f9e0333f5904",
+                  "src": "///wsl.localhost/Ubuntu-24.04/home/foliveira/dev/soat-fase5/upload-service/diagrams/helpdesk_architectures.pdf"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{api}}/upload",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "upload"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Server",
+              "value": "nginx/1.29.6"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "PHP/8.4.19"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, private"
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 28 Mar 2026 19:29:22 GMT"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"err\": false,\n    \"msg\": \"Upload realizado com sucesso.\",\n    \"data\": {\n        \"err\": false,\n        \"message\": \"Arquivo recebido com sucesso\",\n        \"data\": {\n            \"protocolo\": \"1bbcee7c-9a7a-45c6-aae6-8868d9bcb368\"\n        }\n    },\n    \"status\": 200\n}"
+        }
+      ]
+    },
+    {
+      "name": "download report",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "diagram",
+              "type": "file",
+              "uuid": "bf9d6a20-eecf-480f-b837-f9e0333f5904",
+              "src": "///wsl.localhost/Ubuntu-24.04/home/foliveira/dev/soat-fase5/upload-service/diagrams/helpdesk_advanced_architecture.png"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{api}}/report/20ce626b-d9be-45b2-9a78-615687f0dd83",
+          "host": [
+            "{{api}}"
+          ],
+          "path": [
+            "report",
+            "20ce626b-d9be-45b2-9a78-615687f0dd83"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "201 CREATED",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "diagram",
+                  "type": "file",
+                  "uuid": "bf9d6a20-eecf-480f-b837-f9e0333f5904",
+                  "src": "///wsl.localhost/Ubuntu-24.04/home/foliveira/dev/soat-fase5/upload-service/diagrams/helpdesk_architectures.pdf"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{api}}/upload",
+              "host": [
+                "{{api}}"
+              ],
+              "path": [
+                "upload"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Server",
+              "value": "nginx/1.29.6"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "PHP/8.4.19"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, private"
+            },
+            {
+              "key": "Date",
+              "value": "Sat, 28 Mar 2026 19:29:22 GMT"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"err\": false,\n    \"msg\": \"Upload realizado com sucesso.\",\n    \"data\": {\n        \"err\": false,\n        \"message\": \"Arquivo recebido com sucesso\",\n        \"data\": {\n            \"protocolo\": \"1bbcee7c-9a7a-45c6-aae6-8868d9bcb368\"\n        }\n    },\n    \"status\": 200\n}"
+        }
+      ]
+    },
+    {
+      "name": "status report",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "diagram",
+              "type": "file",
+              "uuid": "bf9d6a20-eecf-480f-b837-f9e0333f5904",
+              "src": "///wsl.localhost/Ubuntu-24.04/home/foliveira/dev/soat-fase5/upload-service/diagrams/helpdesk_advanced_architecture.png"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{api}}/report/20ce626b-d9be-45b2-9a78-615687f0dd83/status",
+          "host": [
+            "{{api}}"
+          ],
+          "path": [
+            "report",
+            "20ce626b-d9be-45b2-9a78-615687f0dd83",
+            "status"
           ]
         }
       },
