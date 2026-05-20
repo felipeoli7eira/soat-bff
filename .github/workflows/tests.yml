@@ -1,0 +1,72 @@
+name: Tests
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  run_tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./application
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.4"
+          extensions: apcu, xdebug, pdo_sqlite, sqlite3
+          ini-values: apc.enable_cli=1, xdebug.mode=coverage
+          coverage: xdebug
+
+      - name: Install dependencies
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Run tests with coverage
+        run: vendor/bin/phpunit --coverage-clover coverage/clover.xml
+
+      - name: Check minimum coverage of 85%
+        run: |
+          php -r "
+            \$xml      = simplexml_load_file('coverage/clover.xml');
+            \$elements = (int) \$xml->project->metrics['elements'];
+            \$covered  = (int) \$xml->project->metrics['coveredelements'];
+
+            if (\$elements === 0) {
+                echo 'No elements found for coverage — skipping check.' . PHP_EOL;
+                exit(0);
+            }
+
+            \$pct = (\$covered / \$elements) * 100;
+            echo sprintf('Coverage: %.2f%%' . PHP_EOL, \$pct);
+
+            if (\$pct < 85) {
+                echo 'Coverage below 85%. Build failed.' . PHP_EOL;
+                exit(1);
+            }
+
+            echo 'Coverage check passed.' . PHP_EOL;
+          "
+
+  build_and_push_images:
+    needs: run_tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Login no Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build e push da imagem PHP no Docker HUB
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/soat-bff:latest -f docker/images/php/Dockerfile .
+          docker push ${{ secrets.DOCKER_USERNAME }}/soat-bff:latest
