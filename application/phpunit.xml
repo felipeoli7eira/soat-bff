@@ -26,9 +26,12 @@
         <exclude>
             <directory>app/Console</directory>
             <directory>app/Infrastructure/Service</directory>
+            <directory>app/Infrastructure/Observability</directory>
             <directory>app/Jobs</directory>
             <directory>app/Signature</directory>
             <directory>app/Http/Middleware</directory>
+            <file>app/Http/Controllers/ReportServiceConnectionController.php</file>
+            <file>app/Http/Controllers/UploadServiceConnectionController.php</file>
             <file>app/Infrastructure/Gateway/RabbitMQGateway.php</file>
             <file>app/Infrastructure/Repositories/ServicoMicrosservicoRepository.php</file>
             <file>app/Infrastructure/Repositories/MaterialMicrosservicoRepository.php</file>
