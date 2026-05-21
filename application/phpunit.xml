@@ -26,15 +26,20 @@
         <exclude>
             <directory>app/Console</directory>
             <directory>app/Infrastructure/Service</directory>
+            <directory>app/Infrastructure/Observability</directory>
             <directory>app/Jobs</directory>
             <directory>app/Signature</directory>
             <directory>app/Http/Middleware</directory>
+            <file>app/Http/Controllers/ReportServiceConnectionController.php</file>
+            <file>app/Http/Controllers/UploadServiceConnectionController.php</file>
             <file>app/Infrastructure/Gateway/RabbitMQGateway.php</file>
             <file>app/Infrastructure/Repositories/ServicoMicrosservicoRepository.php</file>
             <file>app/Infrastructure/Repositories/MaterialMicrosservicoRepository.php</file>
         </exclude>
     </source>
     <php>
+        <env name="APP_KEY"
+             value="base64:Bs6X0GuB+Y0Cii8JgnniPVl/XJs8ZFiBvaU6UTkTKH4=" />
         <env name="APP_ENV"
              value="testing" />
         <env name="APP_MAINTENANCE_DRIVER"
