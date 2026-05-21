@@ -38,6 +38,8 @@
         </exclude>
     </source>
     <php>
+        <env name="APP_KEY"
+             value="base64:Bs6X0GuB+Y0Cii8JgnniPVl/XJs8ZFiBvaU6UTkTKH4=" />
         <env name="APP_ENV"
              value="testing" />
         <env name="APP_MAINTENANCE_DRIVER"
