@@ -2,6 +2,14 @@
 
 Serviço responsável por centralizar e orquestrar as chamadas aos microsserviços internos (`soat-upload-service` e `soat-fase5-report`), expondo uma API unificada para o cliente.
 
+
+## Alunos
+
+| Aluno | RM | Discord | LinkedIn |
+|---|---|---|---|
+| Felipe | 365154 | felipeoli7eira | [@felipeoli7eira](https://www.linkedin.com/in/felipeoli7eira) |
+| Nicolas | 365746 | nic_hcm | [@Nicolas Martins](https://www.linkedin.com/in/nicolas-hcm) |
+| William | 365973 | wllsistemas | [@William Francisco Leite](https://www.linkedin.com/in/williamfranciscoleite) |
 ---
 
 ## Setup via Docker Compose
