@@ -52,6 +52,45 @@ O sistema é composto por cinco microsserviços interligados:
 
 ---
 
+## Segurança
+
+### Requisitos básicos adotados
+
+- **Credenciais via variáveis de ambiente**: URLs e configurações dos serviços downstream são injetadas via `.env`, sem valores hardcoded
+- **Superfície de ataque reduzida**: o BFF é o **único ponto de entrada público** do sistema — os demais serviços ficam acessíveis apenas na rede interna `soat-net`
+
+### Validação e tratamento de entradas não confiáveis
+
+- Validação de tipo MIME e extensão do arquivo (`image/jpeg`, `image/png`, `application/pdf`) antes de repassar ao upload-service
+- Tamanho máximo de **2 MB** por arquivo
+- `protocol_uuid` validado como UUID antes das chamadas de status/relatório
+- Erros retornados pelos serviços downstream são tratados e normalizados antes de expor ao cliente — detalhes internos não são vazados nas respostas de erro
+
+### Uso controlado do modelo de IA
+
+- O BFF não se comunica diretamente com a IA — apenas orquestra chamadas ao **upload-service** e ao **report-service**
+- O controle do escopo e do payload enviado à IA é responsabilidade do **trigger-service**
+
+### Tratamento de falhas e comportamentos inesperados da IA
+
+- Timeouts configuráveis (`UPLOAD_SERVICE_TIMEOUT_SECONDS`, `REPORT_SERVICE_TIMEOUT_SECONDS`) evitam que lentidão ou falha da IA trave requisições do cliente
+- Erros `502` são retornados ao cliente quando serviços internos estão indisponíveis, sem expor detalhes do stack interno
+
+### Comunicação entre serviços
+
+- **Rede Docker interna** (`soat-net`): chamadas ao upload-service e report-service trafegam apenas na rede interna
+- Timeouts HTTP configurados para todas as chamadas downstream
+- O BFF atua como **facade**: o cliente nunca se comunica diretamente com os serviços internos
+
+### Riscos e limitações conhecidos
+
+| Risco | Impacto | Mitigação atual |
+|---|---|---|
+| Respostas de erro podem expor detalhes internos | Mensagens de stack ou nomes de serviços internos visíveis ao cliente | Erros normalizados antes de retornar ao cliente; `502` genérico para falhas downstream |
+| Lentidão em um serviço downstream pode degradar a experiência | Requisições lentas acumulam no BFF | Timeouts configuráveis por serviço (`*_TIMEOUT_SECONDS`) |
+
+---
+
 ## Setup via Docker Compose
 
 A rede _default_ dos serviços é uma rede externa chamada `soat-net`. Crie-a antes de subir os containers:
